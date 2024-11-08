@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Práctica 1 - Ordenar Palabras</title>
+    <script src="main.js"></script>
+    <!-- Archivo JavaScript común -->
+  </head>
+  <body>
+    <h2>Práctica 1 - Ordenar Palabras en Orden Inverso</h2>
+    <p>
+      Esta práctica pide palabras, elimina duplicados y las ordena en orden
+      inverso (de Z a A).
+    </p>
+
+    <script>
+      // Función específica para la práctica 1: elimina duplicados y ordena en orden inverso
+      function procesarPalabrasPractica1(palabras) {
+        // Eliminar duplicados usando Set y convertir a array
+        var unicas = Array.from(new Set(palabras));
+
+        // Ordenar en orden inverso (de Z a A) considerando caracteres en español
+        unicas.sort(function (a, b) {
+          return b.localeCompare(a, 'es');
+        });
+
+        return unicas;
+      }
+
+      // Función principal para la práctica 1
+      function ejecutarPractica1() {
+        var palabras = pedirPalabras(); // Usamos pedirPalabras() de main.js
+        var palabrasProcesadas = procesarPalabrasPractica1(palabras);
+
+        // Creamos el mensaje a mostrar
+        var mensaje =
+          'Palabras ordenadas y únicas:\n' + palabrasProcesadas.join(', ');
+        mostrarResultado(mensaje); // Usamos mostrarResultado() de main.js
+      }
+
+      // Ejecutamos la práctica 1
+      ejecutarPractica1();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Práctica 2 - Contador de Palabras</title>
+    <script src="main.js"></script>
+    <!-- Archivo JavaScript común -->
+  </head>
+  <body>
+    <h2>Práctica 2 - Contador de Palabras</h2>
+    <p>
+      Esta práctica cuenta las ocurrencias de cada palabra ingresada por el
+      usuario.
+    </p>
+
+    <script>
+      // Función específica para la práctica 2: cuenta el numero de palabras que se repiten
+      function contarPalabras(palabras) {
+        var mapaFrecuencia = new Map();
+
+        palabras.forEach(function (palabra) {
+          if (mapaFrecuencia.has(palabra)) {
+            mapaFrecuencia.set(palabra, mapaFrecuencia.get(palabra) + 1); // Incrementa la cuenta
+          } else {
+            mapaFrecuencia.set(palabra, 1); // Establece la cuenta en 1 si es la primera vez
+          }
+        });
+
+        return mapaFrecuencia;
+      }
+
+      // Función principal para la práctica 2
+      function ejecutarPractica2() {
+        var palabras = pedirPalabras(); // Usamos pedirPalabras() de main.js
+        var mapaFrecuencia = contarPalabras(palabras);
+
+        // Construimos el mensaje a mostrar
+        var mensaje = 'Conteo de palabras:\n';
+        mapaFrecuencia.forEach(function (valor, clave) {
+          mensaje += `${clave}: ${valor}\n`;
+        });
+
+        mostrarResultado(mensaje); // Usamos mostrarResultado() de main.js
+      }
+
+      // Ejecutamos la práctica 2
+      ejecutarPractica2();
+    </script>
+  </body>
+</html>
