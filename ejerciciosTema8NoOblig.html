@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      p {
+        margin: 10px 0;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
+      button {
+        margin-top: 20px;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="parrafo1">Este es el primer párrafo.</p>
+    <p id="parrafo2">Este es el segundo párrafo.</p>
+    <p id="parrafo3">Este es el tercer párrafo.</p>
+    <button id="reaparecerBtn">Reaparecer</button>
+
+    <p id="posicion">Posición del ratón: X: 0, Y: 0</p>
+    <br />
+    <br />
+    <input type="button" value="Boton Numero" onclick="añadirnumero()" />
+    <ul id="milista"></ul>
+
+    <script>
+      function añadirnumero() {
+        var numero = Math.random(); // Se añaden los paréntesis para ejecutar la función.
+        var nuevoLi = document.createElement('li');
+        nuevoLi.textContent = numero; // Se usa textContent para agregar el número como texto.
+        document.getElementById('milista').appendChild(nuevoLi);
+      }
+
+      // Obtener referencia al elemento <p> donde se mostrará la posición
+      const posicionElemento = document.getElementById('posicion');
+
+      // Función para actualizar la posición del ratón
+      function actualizarPosicion(evento) {
+        // Obtener las coordenadas del ratón (en relación al documento)
+        const x = evento.clientX;
+        const y = evento.clientY;
+
+        // Actualizar el contenido del <p> con la nueva posición
+        posicionElemento.textContent = `Posición del ratón: X: ${x}, Y: ${y}`;
+      }
+
+      // Agregar un evento para el movimiento del ratón
+      document.addEventListener('mousemove', actualizarPosicion);
+    </script>
+
+    <script>
+      // Función para ocultar el párrafo
+      function ocultarParrafo(evento) {
+        evento.target.style.display = 'none'; // Oculta el párrafo al hacer clic
+      }
+
+      // Función para eliminar el párrafo
+      function eliminarParrafo(evento) {
+        evento.target.remove(); // Elimina el párrafo al hacer doble clic
+      }
+
+      // Función para reaparecer los elementos ocultos
+      function reaparecerParrafos() {
+        // Volver a mostrar todos los elementos <p> que fueron ocultados
+        const parrafos = document.querySelectorAll('p');
+        parrafos.forEach((parrafo) => {
+          if (parrafo.style.display === 'none') {
+            parrafo.style.display = 'block';
+          }
+        });
+      }
+
+      // Obtener los elementos <p> y añadir los event listeners
+      document
+        .getElementById('parrafo1')
+        .addEventListener('click', ocultarParrafo);
+      document
+        .getElementById('parrafo1')
+        .addEventListener('dblclick', eliminarParrafo);
+
+      document
+        .getElementById('parrafo2')
+        .addEventListener('click', ocultarParrafo);
+      document
+        .getElementById('parrafo2')
+        .addEventListener('dblclick', eliminarParrafo);
+
+      document
+        .getElementById('parrafo3')
+        .addEventListener('click', ocultarParrafo);
+      document
+        .getElementById('parrafo3')
+        .addEventListener('dblclick', eliminarParrafo);
+
+      // Añadir el listener al botón "Reaparecer"
+      document
+        .getElementById('reaparecerBtn')
+        .addEventListener('click', reaparecerParrafos);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Validación</title>
+  </head>
+  <body>
+    <h2>Formulario de Validación</h2>
+
+    <form id="miFormulario">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+      <span id="emailError" style="color: red; display: none"
+        >El email debe tener el formato xxxx@yyyy.zzzz</span
+      ><br /><br />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+      <span id="passwordError" style="color: red; display: none"
+        >El password debe tener entre 8 y 10 caracteres.</span
+      ><br /><br />
+
+      <button type="submit" id="submitBtn" disabled>Enviar</button>
+    </form>
+
+    <script>
+      // Obtener los elementos del formulario
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submitBtn');
+      const emailError = document.getElementById('emailError');
+      const passwordError = document.getElementById('passwordError');
+
+      // Expresión regular para validar el formato del email
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      // Función para validar el email
+      function validarEmail() {
+        if (!emailRegex.test(emailInput.value)) {
+          emailError.style.display = 'inline'; // Mostrar mensaje de error
+        } else {
+          emailError.style.display = 'none'; // Ocultar mensaje de error
+        }
+        validarFormulario();
+      }
+
+      // Función para validar el password
+      function validarPassword() {
+        if (passwordInput.value.length < 8 || passwordInput.value.length > 10) {
+          passwordError.style.display = 'inline'; // Mostrar mensaje de error
+        } else {
+          passwordError.style.display = 'none'; // Ocultar mensaje de error
+        }
+        validarFormulario();
+      }
+
+      // Función para verificar si el formulario es válido
+      function validarFormulario() {
+        // Habilitar o deshabilitar el botón de enviar
+        if (
+          emailError.style.display === 'none' &&
+          passwordError.style.display === 'none' &&
+          emailInput.value !== '' &&
+          passwordInput.value !== ''
+        ) {
+          submitBtn.disabled = false; // Habilitar el botón
+        } else {
+          submitBtn.disabled = true; // Deshabilitar el botón
+        }
+      }
+
+      // Añadir event listeners para el evento 'blur' (cuando pierde el foco)
+      emailInput.addEventListener('blur', validarEmail);
+      passwordInput.addEventListener('blur', validarPassword);
+
+      // Reestablecer el mensaje de error cuando el usuario vuelve a editar los campos
+      emailInput.addEventListener('focus', function () {
+        emailError.style.display = 'none';
+      });
+
+      passwordInput.addEventListener('focus', function () {
+        passwordError.style.display = 'none';
+      });
+
+      document
+        .getElementById('miFormulario')
+        .addEventListener('submit', function (event) {
+          event.preventDefault(); // Prevenir el envío del formulario por defecto
+          alert('Formulario enviado con éxito');
+        });
+    </script>
+  </body>
+</html>

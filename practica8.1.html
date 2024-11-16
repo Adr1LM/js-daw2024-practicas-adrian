@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cambiar Fondo con ALT+B</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        font-size: 24px;
+      }
+
+      #mensaje {
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="mensaje">Presiona ALT + B para cambiar el fondo</p>
+
+    <script>
+      // Variable que indica si el fondo ha cambiado al menos una vez
+      let fondoCambiado = false;
+
+      // Función para cambiar el fondo con una imagen aleatoria de Picsum
+      function cambiarFondo() {
+        // Agregar un parámetro único a la URL para evitar la caché
+        const imagenUrl = `https://picsum.photos/1920/1080?${new Date().getTime()}`;
+
+        // Cambiar el fondo a una imagen aleatoria de Picsum
+        document.body.style.backgroundImage = `url('${imagenUrl}')`;
+        document.body.style.backgroundSize = 'cover'; // Asegura que la imagen cubra toda la pantalla
+        document.body.style.backgroundPosition = 'center'; // Centra la imagen
+        document.body.style.backgroundRepeat = 'no-repeat'; // Evita que la imagen se repita
+
+        // Eliminar el mensaje después del primer cambio de fondo
+        if (!fondoCambiado) {
+          const mensaje = document.getElementById('mensaje');
+          if (mensaje) {
+            mensaje.style.display = 'none';
+          }
+          fondoCambiado = true; // Marcar que el fondo ya ha cambiado
+        }
+      }
+
+      // Escuchar la combinación de teclas ALT + B
+      window.addEventListener('keydown', function (evento) {
+        // Verificar si las teclas ALT y B están siendo presionadas
+        if (evento.altKey && evento.key === 'b') {
+          cambiarFondo();
+        }
+      });
+    </script>
+  </body>
+</html>

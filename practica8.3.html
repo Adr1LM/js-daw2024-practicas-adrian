@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arrastre de una capa en otra</title>
+    <style>
+      /* Estilos generales para los divs */
+      div {
+        border: 1px solid black;
+        padding: 1em;
+        position: fixed;
+        top: 20px;
+        width: 200px;
+        height: 100px;
+      }
+
+      /* Capa arrastrable */
+      #capa1 {
+        left: 50px;
+        background-color: yellow;
+      }
+
+      /* Capa de destino */
+      #capa2 {
+        left: 400px;
+        background-color: white;
+        transition: background-color 0.3s ease; /* Transición suave al cambiar el fondo */
+      }
+
+      /* Estilo para la capa arrastrada (con opacidad reducida) */
+      .capa-arrastrada {
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Capa arrastrable -->
+    <div id="capa1" draggable="true" ondragstart="iniciarArrastre(event)">
+      Soy arrastrable
+    </div>
+
+    <!-- Capa de destino -->
+    <div
+      id="capa2"
+      ondragover="permitirSoltar(event)"
+      ondrop="soltarCapa(event)"
+    >
+      Soy el destino
+    </div>
+
+    <script>
+      // Función que se ejecuta cuando empieza el arrastre
+      function iniciarArrastre(event) {
+        // Establece el efecto visual cuando se empieza a arrastrar
+        event.dataTransfer.setData('text', event.target.id);
+
+        // Cambia la opacidad de la capa arrastrada
+        event.target.classList.add('capa-arrastrada');
+      }
+
+      // Función que permite el soltar de la capa sobre el destino
+      function permitirSoltar(event) {
+        event.preventDefault(); // Permite la acción de soltar
+
+        // Cambiar el fondo de la capa2 a rojo cuando se arrastra sobre ella
+        event.target.style.backgroundColor = 'red';
+      }
+
+      // Función que maneja el soltar el elemento
+      function soltarCapa(event) {
+        event.preventDefault(); // Previene el comportamiento predeterminado
+
+        // Recupera el id del elemento arrastrado
+        const idCapa = event.dataTransfer.getData('text');
+        const capaArrastrada = document.getElementById(idCapa);
+
+        // Hace desaparecer la capa arrastrada
+        capaArrastrada.style.display = 'none';
+
+        // Cambia el texto de la capa2
+        event.target.innerHTML = '¡Lo has logrado!';
+
+        // Cambiar el fondo de la capa2 de nuevo a blanco
+        event.target.style.backgroundColor = 'white';
+      }
+    </script>
+  </body>
+</html>
